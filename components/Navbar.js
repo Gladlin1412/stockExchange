@@ -6,10 +6,13 @@ export default function Navbar() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Trading Agent
+          Stock Exchange
         </Typography>
-        <Button color="inherit" component={Link} href="/dashboard">
+        <Button color="inherit" component={Link} href="/">
           Dashboard
+        </Button>
+        <Button color="inherit" component={Link} href="/watchlist">
+          Watchlist
         </Button>
         <Button color="inherit" component={Link} href="/backtesting">
           Backtesting
