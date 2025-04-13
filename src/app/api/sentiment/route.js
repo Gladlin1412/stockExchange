@@ -8,11 +8,33 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const data = await request.json();
-  sentimentData.push(data);
-  // Keep only the last 100 entries to prevent memory issues
-  if (sentimentData.length > 100) {
-    sentimentData = sentimentData.slice(-100);
+  try {
+    const data = await request.json();
+    
+    // Validate the incoming data
+    if (!data.title || !data.date || typeof data.sentiment !== 'number') {
+      return NextResponse.json(
+        { error: 'Invalid data format. Expected {title, date, sentiment}' },
+        { status: 400 }
+      );
+    }
+
+    sentimentData.push({
+      title: data.title,
+      date: data.date,
+      sentiment: data.sentiment
+    });
+
+    // Keep only the last 100 entries to prevent memory issues
+    if (sentimentData.length > 100) {
+      sentimentData = sentimentData.slice(-100);
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to process data' },
+      { status: 500 }
+    );
   }
-  return NextResponse.json({ success: true });
 } 
