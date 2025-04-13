@@ -1,0 +1,5 @@
+python-dotenv
+polygon-api-client
+google-generativeai
+flask
+flask-cors
